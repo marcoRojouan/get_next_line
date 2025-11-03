@@ -15,13 +15,16 @@
 
 int main(void)
 {
-    char *line;
-    char *line2;
-    int fd;
-    fd = open("file.txt", O_RDONLY);
-    line = get_next_line(fd);
-    printf("%s\n", line);
-    line2 = get_next_line(fd);
-    printf("%s\n", line2);
-    close(fd);
+	char *line;
+	int fd;
+
+	fd = open("file.txt", O_RDONLY);
+	line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s\n", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 }

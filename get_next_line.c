@@ -61,7 +61,6 @@ static char    *get_stock(char *stockage, int fd)
         free(stockage);
         stockage = tmp;
     }
-    free(tmp);
     free(buffer);
     return (stockage);
 }
@@ -72,7 +71,11 @@ char    *get_next_line(int fd)
     char *final_line;
 
     stockage = get_stock(stockage, fd);
+	if (!stockage)
+		return (NULL);
     final_line = get_final_line(stockage);
+	if (!final_line)
+		return (NULL);
     stockage = get_rest(stockage);
     return (final_line);
 }
