@@ -6,7 +6,7 @@
 /*   By: loup <loup@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:50:21 by loup              #+#    #+#             */
-/*   Updated: 2025/10/29 22:24:11 by loup             ###   ########.fr       */
+/*   Updated: 2025/10/29 23:48:55 by loup             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER
-#  define BUFFER 500
+#  define BUFFER 54
 # endif
 
 #include <unistd.h>
