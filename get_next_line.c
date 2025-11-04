@@ -6,11 +6,11 @@
 /*   By: mrojouan <mrojouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 15:41:20 by loup              #+#    #+#             */
-/*   Updated: 2025/11/04 16:51:13 by mrojouan         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:03:52 by mrojouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include <get_next_line.h>
 
 static char *get_rest(char *stockage)
 {
