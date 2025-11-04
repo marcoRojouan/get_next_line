@@ -6,7 +6,7 @@
 /*   By: loup <loup@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 15:41:20 by loup              #+#    #+#             */
-/*   Updated: 2025/10/29 23:57:34 by loup             ###   ########.fr       */
+/*   Updated: 2025/11/04 00:09:24 by loup             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char *read_line_rest(char *stockage, int fd)
 }
 
 
-char	get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	char *stockage;
 
