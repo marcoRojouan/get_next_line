@@ -6,82 +6,81 @@
 /*   By: mrojouan <mrojouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 15:41:20 by loup              #+#    #+#             */
-/*   Updated: 2025/11/03 10:10:52 by mrojouan         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:51:13 by mrojouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char    *get_rest(char *stockage)
+static char *get_rest(char *stockage)
 {
-    char    *rest;
-    int     len;
+	char *rest;
+	int i;
+	int restlen;
 
-    len = 0;
-    while (stockage[len] != '\n' && stockage[len] )
-        len++;
-    if (stockage[len] == '\n')
-        len++;
-    rest = ft_strdup(stockage + len);
-    free(stockage);
-    return (rest);
+	i = 0;
+	while (stockage[i] != '\n' || stockage[i])
+		i++;
+	if (stockage[i] == '\n')
+	{
+		i++;
+	}	
+	restlen = ft_strlen(stockage + i);
+	rest = ft_substr(stockage, i, restlen);
+	return (rest);
 }
 
-static char    *get_final_line(char *stockage)
+static char	*get_last_line(char *stockage)
 {
-    char *final_line;
-    int len;
+	char	*last_line;
+	int		i;
 
-    len = 0;
-    while (stockage[len] != '\n' && stockage[len])
-        len++;
-    if (stockage[len] == '\n')
-        len++;
-    final_line = ft_substr(stockage, 0, len);
-    return (final_line);
+	i = 0;
+	while (stockage[i] != '\n' || stockage[i])
+		i++;
+	if (stockage[i] == '\n')
+		i++;
+	last_line = ft_substr(stockage, 0, i);
+	return (last_line); 
 }
 
-static char    *get_stock(char *stockage, int fd)
+static char	*read_line_plus(char *stockage, int fd)
 {
-    char    *buffer;
-    char    *tmp;
-    int     read_count;
+	int		read_count;
+	char	*buffer;
 
-    read_count = 1;
-    buffer = malloc(sizeof(char) * (BUFFER + 1));
-    if (!buffer)
-        return (NULL);
-    if (!stockage)
-        stockage = ft_strdup("");
-    while (!ft_strchr(stockage, '\n') && read_count > 0)
-    {
-        read_count = read(fd, buffer, BUFFER);
-        if (read_count == 0)
-        {
-            free(stockage);
-            free(buffer);
-            return (NULL);
-        }
-        buffer[read_count] = '\0';
-        tmp = ft_strjoin(stockage, buffer);
-        free(stockage);
-        stockage = tmp;
-    }
-    free(buffer);
-    return (stockage);
+	read_count = 1;
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	while (!ft_strchr(stockage, '\n') && read_count != 0)
+	{
+		read_count = read(fd, buffer, BUFFER_SIZE);
+		if (read_count  == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		stockage = ft_strjoin(stockage, buffer);
+	}
+	stockage[read_count] = '\0';
+	free(buffer);
+	return (stockage);
 }
 
-char    *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-    static char *stockage;
-    char *final_line;
+	static char	*stockage;
+	char	*last_line;
 
-    stockage = get_stock(stockage, fd);
-    if (!stockage)
-        return (NULL);
-    final_line = get_final_line(stockage);
-    if (!final_line)
-        return (NULL);
-    stockage = get_rest(stockage);
-    return (final_line);
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	stockage = read_line_plus(stockage, fd);
+	if (!stockage)
+		return (NULL);
+	last_line = get_last_line(stockage);
+	if (!last_line)
+		return (NULL);
+	stockage = get_rest(stockage);
+	return (last_line);
 }
