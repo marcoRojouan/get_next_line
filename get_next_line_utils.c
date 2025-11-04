@@ -6,7 +6,7 @@
 /*   By: loup <loup@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 16:05:28 by mrojouan          #+#    #+#             */
-/*   Updated: 2025/11/04 00:10:05 by loup             ###   ########.fr       */
+/*   Updated: 2025/11/04 18:08:34 by loup             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,32 +80,36 @@ char    *ft_strchr(const char *str, int occ)
         size_t  i;
 
         i = 0;
+        if (!str)
+                return (NULL);
+        if ((unsigned char)occ == '\0')
+                return ((char *)&str[i]);
         while (str[i])
         {
                 if (str[i] == (unsigned char)occ)
                         return ((char *)&str[i]);
                 i++;
         }
-        if ((unsigned char)occ == '\0')
-                return ((char *)&str[i]);
         return (NULL);
 }
 
 /** Retourne une string allouer, qui est le resultat des deux parametre joint */
-char    *ft_strjoin(const char *s1, const char *s2)
+char    *ft_strjoin(char *s1, char *s2)
 {
-        int             s1len;
-        int             s2len;
         int             i;
         int             j;
         char    *tab;
 
-        s1len = ft_strlen((char *)s1);
-        s2len = ft_strlen((char *)s2);
-        tab = NULL;
-        tab = malloc(sizeof(char) * (s1len + s2len) + 1);
+        if (!s1)
+        {
+                s1 = malloc(sizeof(char) * 1);
+                if (!s1)
+                        return(NULL);
+                s1[0] = '\0';
+        }
+        tab = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
         if (!tab)
-                return (0);
+                return (NULL);
         i = 0;
         j = 0;
         while (s1[i])
@@ -114,5 +118,6 @@ char    *ft_strjoin(const char *s1, const char *s2)
         while (s2[i])
                 tab[j++] = s2[i++];
         tab[j] = 0;
+        free(s1);
         return (tab);
 }
