@@ -1,4 +1,4 @@
 okay on se sert de ce fichier texte comme de note
-premier but de la fonction :
-- stockage doit etre egale a la premiere ligne +
+premier but de la fonction
+stockage doit etre egale a la premiere ligne
 au reste de ce qu'on lit en fonction du buffer
