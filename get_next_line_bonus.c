@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrojouan <mrojouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 15:41:20 by loup              #+#    #+#             */
-/*   Updated: 2025/11/10 12:06:47 by mrojouan         ###   ########.fr       */
+/*   Created: 2025/11/10 11:47:07 by mrojouan          #+#    #+#             */
+/*   Updated: 2025/11/10 11:49:35 by mrojouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,15 @@ static char	*alloc_read_next(char *stockage, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*stockage;
+	static char	*stockage[1024];
 	char		*last_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stockage = alloc_read_next(stockage, fd);
-	if (!stockage)
+	stockage[fd] = alloc_read_next(stockage[fd], fd);
+	if (!stockage[fd])
 		return (NULL);
-	last_line = get_last_line(stockage);
-	if (!last_line)
-		return (NULL);
-	stockage = get_rest(stockage);
+	last_line = get_last_line(stockage[fd]);
+	stockage[fd] = get_rest(stockage[fd]);
 	return (last_line);
 }
