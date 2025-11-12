@@ -6,7 +6,7 @@
 /*   By: mrojouan <mrojouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 11:47:07 by mrojouan          #+#    #+#             */
-/*   Updated: 2025/11/12 13:15:39 by mrojouan         ###   ########.fr       */
+/*   Updated: 2025/11/12 13:17:24 by mrojouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,3 +104,4 @@ char	*get_next_line(int fd)
 	stockage[fd] = get_rest(stockage[fd]);
 	return (last_line);
 }
+ 
