@@ -6,7 +6,7 @@
 /*   By: mrojouan <mrojouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 15:41:20 by loup              #+#    #+#             */
-/*   Updated: 2025/11/10 12:06:47 by mrojouan         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:04:42 by mrojouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ static char	*get_last_line(char *stockage)
 	if (stockage[i] == '\n')
 		i++;
 	last_line = ft_substr(stockage, 0, i);
+	if (!last_line)
+	{
+		free(stockage);
+		return (NULL);
+	}
 	return (last_line);
 }
 
@@ -66,6 +71,8 @@ static char	*read_line_plus(char *stockage, char *buffer, int fd)
 		}
 		buffer[read_count] = '\0';
 		tmp = ft_strjoin(stockage, buffer);
+		if (!tmp)
+			return (NULL);
 		stockage = tmp;
 	}
 	return (stockage);
